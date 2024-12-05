@@ -1,0 +1,36 @@
+[project]
+name = "datasette-enrichments-llm"
+version = "0.1"
+description = "Enrich data by prompting LLMs"
+readme = "README.md"
+authors = [{name = "Simon Willison"}]
+license = {text = "Apache-2.0"}
+classifiers=[
+    "Framework :: Datasette",
+    "License :: OSI Approved :: Apache Software License"
+]
+requires-python = ">=3.9"
+dependencies = [
+    "datasette>=1.0a16",
+    "llm>=0.19.1",
+    "datasette-enrichments",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/datasette/datasette-enrichments-llm"
+Changelog = "https://github.com/datasette/datasette-enrichments-llm/releases"
+Issues = "https://github.com/datasette/datasette-enrichments-llm/issues"
+CI = "https://github.com/datasette/datasette-enrichments-llm/actions"
+
+[project.entry-points.datasette]
+enrichments_llm = "datasette_enrichments_llm"
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-asyncio", "pytest-recording"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
