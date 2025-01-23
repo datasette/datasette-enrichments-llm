@@ -40,13 +40,18 @@ class LlmEnrichment(Enrichment):
         if url_columns:
             media_url_suggestion = "{{ %s }}" % url_columns[0]
 
-        models = [(model.model_id, model.model_id) for model in llm.get_async_models()]
+        models = []
+        for model in llm.get_async_models():
+            model_id = model.model_id
+            if model.attachment_types:
+                model_id += ":media"
+            models.append((model_id, model.model_id))
 
         class ConfigForm(Form):
             model = SelectField(
                 "Model",
                 choices=models,
-                default="gpt-4o-mini",
+                default="gpt-4o-mini:media",
             )
             prompt = TextAreaField(
                 "Prompt",
@@ -119,7 +124,7 @@ class LlmEnrichment(Enrichment):
                     "{{ %s }}" % key, str(value or "")
                 ).replace("{{%s}}" % key, str(value or ""))
 
-        if use_media:
+        if use_media and model_id.endswith(":media"):
             # Fetch media_url and use as binary content
             try:
                 async with httpx.AsyncClient() as client:
@@ -136,7 +141,7 @@ class LlmEnrichment(Enrichment):
                 )
                 return
 
-        model_id = config["model"]
+        model_id = config["model"].replace(":media", "")
         model = llm.get_async_model(model_id)
         response = await model.prompt(prompt, system=system, attachments=attachments)
         output = await response.text()

@@ -1,0 +1,21 @@
+{% extends "enrichment.html" %}
+
+{% block below_form %}
+<script>
+const modelSelect = document.querySelector('#model');
+const mediaDivs = Array.from(
+  document.querySelectorAll('label[for="use_media"],label[for="media_url"],#use_media,#media_url'),
+  el => el.parentNode
+);
+
+function handleModelChange() {
+  if (modelSelect.value.endsWith(":media")) {
+    mediaDivs.forEach(div => div.style.display = '');
+  } else {
+    mediaDivs.forEach(div => div.style.display = 'none');
+  }
+}
+modelSelect.addEventListener('change', handleModelChange);
+handleModelChange();
+</script>
+{% endblock %}
