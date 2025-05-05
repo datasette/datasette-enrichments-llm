@@ -1,8 +1,8 @@
 from __future__ import annotations
 from datasette_enrichments import Enrichment
-from datasette_secrets import Secret
 from datasette import hookimpl
 from datasette.database import Database
+from datasette_llm_usage import LLM, TokensExhausted
 import httpx
 import llm
 from typing import List, Optional
@@ -79,7 +79,7 @@ class LlmEnrichment(Enrichment):
                 "Output column name",
                 description="The column to store the output in - will be created if it does not exist.",
                 validators=[DataRequired(message="Column is required.")],
-                default="prompt_output",
+                default="llm_output",
             )
 
         return ConfigForm

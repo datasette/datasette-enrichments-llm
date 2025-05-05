@@ -19,9 +19,13 @@ datasette install datasette-enrichments-llm
 
 The plugin will enable enrichments to be run against any [LLM](https://llm.datasette.io/) model that has an LLM plugin providing [asynchronous support](https://llm.datasette.io/en/stable/plugins/advanced-model-plugins.html#async-models) for that model.
 
-Multi-modal models are supported via the `media_url` parameter.
+Multi-modal models are supported via the `media_url` parameter, which can be set to the URL to an image or other supported media type, depending on the model.
 
 API keys currently use the default LLM mechanism, probably best set using environment variables.
+
+## Configuration
+
+Only models that have been configured for use with the [datasette-llm-usage](https://github.com/datasette/datasette-llm-usage) plugin will be made available to users.
 
 ## Development
 
