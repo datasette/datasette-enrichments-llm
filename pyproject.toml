@@ -1,6 +1,6 @@
 [project]
 name = "datasette-enrichments-llm"
-version = "0.1a0"
+version = "0.1a1"
 description = "Enrich data by prompting LLMs"
 readme = "README.md"
 authors = [{name = "Simon Willison"}]
@@ -11,7 +11,7 @@ classifiers=[
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "datasette>=1.0a16",
+    "datasette==1.0a19",
     "llm>=0.19.1",
     "datasette-enrichments",
 ]
