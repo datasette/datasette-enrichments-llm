@@ -4,14 +4,13 @@ version = "0.1a1"
 description = "Enrich data by prompting LLMs"
 readme = "README.md"
 authors = [{name = "Simon Willison"}]
-license = {text = "Apache-2.0"}
+license = "Apache-2.0"
 classifiers=[
-    "Framework :: Datasette",
-    "License :: OSI Approved :: Apache Software License"
+    "Framework :: Datasette"
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
-    "datasette==1.0a19",
+    "datasette>=1.0a21",
     "llm>=0.19.1",
     "datasette-enrichments",
 ]
