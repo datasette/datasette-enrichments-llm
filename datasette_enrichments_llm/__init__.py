@@ -4,7 +4,7 @@ from datasette_secrets import Secret
 from datasette import hookimpl
 from datasette.database import Database
 import httpx
-import llm
+from datasette_llm_accountant import LlmWrapper
 from typing import List, Optional
 from wtforms import (
     Form,
@@ -104,6 +104,8 @@ class LlmEnrichment(Enrichment):
             row = rows[0]
         else:
             return
+        
+        llm = LlmWrapper(datasette)
         prompt = config["prompt"] or ""
         system = config["system_prompt"] or None
         output_column = config["output_column"]
