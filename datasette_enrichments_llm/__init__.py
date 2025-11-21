@@ -30,6 +30,7 @@ class LlmEnrichment(Enrichment):
     batch_size = 1
 
     async def get_config_form(self, datasette, db, table):
+        llm = LlmWrapper(datasette)
         columns = await db.table_columns(table)
 
         # Default template uses all string columns
