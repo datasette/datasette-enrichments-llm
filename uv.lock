@@ -311,16 +311,16 @@ wheels = [
 
 [[package]]
 name = "datasette-enrichments"
-version = "0.5.1"
+version = "0.6a0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "datasette" },
     { name = "datasette-secrets" },
     { name = "wtforms" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/27/e1/5fe05e4cabfc4e95313a6e3ebc69e98dab5fc3877f835e4249fd9602c3cc/datasette_enrichments-0.5.1.tar.gz", hash = "sha256:e3c578a924b7cd9b9e099bef47d4d636df377a58449068741be50ddf365754a1", size = 26072, upload-time = "2025-05-05T14:54:23.378Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/63/88/f48ce47f75584ffd73ef49af2faf02d2317088af0fa7f0a2b750e8c432fa/datasette_enrichments-0.6a0.tar.gz", hash = "sha256:9d462103eeeb92906541698b9322bb83428b780d8843a68139d1049c6ebef750", size = 25791, upload-time = "2025-11-06T00:11:31.427Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/13/68/24aaea6e7726e91eeb04518bd72720c753716c0951203c1be677dc4441fc/datasette_enrichments-0.5.1-py3-none-any.whl", hash = "sha256:711ab68cc7eeaf32f7b0934d0cb74c1278fab01626e7289dc0f3df20c1be9b4a", size = 24230, upload-time = "2025-05-05T14:54:22.166Z" },
+    { url = "https://files.pythonhosted.org/packages/da/eb/105917670d68e18f9cb6e9c46d218777be0b1575fe38dde39921bcc77362/datasette_enrichments-0.6a0-py3-none-any.whl", hash = "sha256:6ce9726439c5294ef07975836c62da38031f92f2d8e4dc293c79f1c03535c945", size = 23900, upload-time = "2025-11-06T00:11:30.367Z" },
 ]
 
 [[package]]
@@ -343,8 +343,8 @@ test = [
 [package.metadata]
 requires-dist = [
     { name = "datasette", specifier = ">=1.0a21" },
-    { name = "datasette-enrichments" },
-    { name = "datasette-llm-accountant", specifier = ">=0.1a0" },
+    { name = "datasette-enrichments", specifier = ">=0.6a0" },
+    { name = "datasette-llm-accountant", specifier = ">=0.1a1" },
     { name = "pytest", marker = "extra == 'test'" },
     { name = "pytest-asyncio", marker = "extra == 'test'" },
     { name = "pytest-recording", marker = "extra == 'test'" },
@@ -353,16 +353,16 @@ provides-extras = ["test"]
 
 [[package]]
 name = "datasette-llm-accountant"
-version = "0.1a0"
+version = "0.1a1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "datasette" },
     { name = "httpx" },
     { name = "llm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d0/f8/3126e6636b25924dec2b73616e77d732075e1774f17c5bdafd9858caca07/datasette_llm_accountant-0.1a0.tar.gz", hash = "sha256:afe1895a9721beca7557c7b34c6ae8ca49f25b10b83b34c3f1c80756c7be5b18", size = 16024, upload-time = "2025-11-18T01:24:00.528Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f5/54/24cf13e0965511fac4d0ce3ec3e4ca8fbd477b23afffe5f87057f4cd7411/datasette_llm_accountant-0.1a1.tar.gz", hash = "sha256:123f03ef7d9dfb036ce5eaf512540d8b42ab87d912d6c26648c4b1e172e97256", size = 16097, upload-time = "2025-11-25T22:53:57.855Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/be/ec/b33668453a754881a3bc2c4d078f426c916287f9f78d5bf746339d3111ec/datasette_llm_accountant-0.1a0-py3-none-any.whl", hash = "sha256:efe4fc18040ec2a2d72ce30a99282649c486656aaacdae35bd14a12d9daf60cb", size = 13278, upload-time = "2025-11-18T01:23:59.35Z" },
+    { url = "https://files.pythonhosted.org/packages/ef/57/3bafc4e59b0379afad4792e1d36d27de116751ef50282a2373e5086812c3/datasette_llm_accountant-0.1a1-py3-none-any.whl", hash = "sha256:454d1d3a768ac218ccb6b722272c4173a92aa75b83adb2e5638c1dab1989b30b", size = 13283, upload-time = "2025-11-25T22:53:56.795Z" },
 ]
 
 [[package]]
