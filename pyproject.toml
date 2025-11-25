@@ -1,6 +1,6 @@
 [project]
 name = "datasette-enrichments-llm"
-version = "0.1a2"
+version = "0.1a3"
 description = "Enrich data by prompting LLMs"
 readme = "README.md"
 authors = [{name = "Simon Willison"}]
