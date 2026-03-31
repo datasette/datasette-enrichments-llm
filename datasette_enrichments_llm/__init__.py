@@ -1,10 +1,9 @@
 from __future__ import annotations
 from datasette_enrichments import Enrichment
-from datasette_secrets import Secret
 from datasette import hookimpl
 from datasette.database import Database
 import httpx
-from datasette_llm_accountant import LlmWrapper
+from llm import Attachment
 from typing import List, Optional
 from wtforms import (
     Form,
@@ -16,10 +15,24 @@ from wtforms import (
 from wtforms.validators import DataRequired
 import sqlite_utils
 
+PURPOSE = "enrichments"
+
 
 @hookimpl
 def register_enrichments():
     return [LlmEnrichment()]
+
+
+@hookimpl
+def register_llm_purposes(datasette):
+    from datasette_llm import Purpose
+
+    return [
+        Purpose(
+            name=PURPOSE,
+            description="Enrich data by prompting LLMs",
+        )
+    ]
 
 
 class LlmEnrichment(Enrichment):
@@ -30,7 +43,9 @@ class LlmEnrichment(Enrichment):
     batch_size = 1
 
     async def get_config_form(self, datasette, db, table):
-        llm = LlmWrapper(datasette)
+        from datasette_llm import LLM
+
+        llm = LLM(datasette)
         columns = await db.table_columns(table)
 
         # Default template uses all string columns
@@ -41,7 +56,8 @@ class LlmEnrichment(Enrichment):
         if url_columns:
             media_url_suggestion = "{{ %s }}" % url_columns[0]
 
-        models = [(model.model_id, model.model_id) for model in llm.get_async_models()]
+        all_models = await llm.models(purpose=PURPOSE)
+        models = [(model.model_id, model.model_id) for model in all_models]
 
         class ConfigForm(Form):
             model = SelectField(
@@ -93,7 +109,7 @@ class LlmEnrichment(Enrichment):
 
     async def enrich_batch(
         self,
-        datasette: "Datasette",
+        datasette,
         db: Database,
         table: str,
         rows: List[dict],
@@ -105,8 +121,10 @@ class LlmEnrichment(Enrichment):
             row = rows[0]
         else:
             return
-        
-        llm = LlmWrapper(datasette)
+
+        from datasette_llm import LLM
+
+        llm = LLM(datasette)
         prompt = config["prompt"] or ""
         system = config["system_prompt"] or None
         output_column = config["output_column"]
@@ -129,8 +147,8 @@ class LlmEnrichment(Enrichment):
                     print("getting ", media_url)
                     response = await client.get(media_url)
                     response.raise_for_status()
-                    attachments.append(llm.Attachment(content=response.content))
-            except httpx.HTTPError as exc:
+                    attachments.append(Attachment(content=response.content))
+            except httpx.HTTPError:
                 await self.log_error(
                     db,
                     job_id,
@@ -140,7 +158,7 @@ class LlmEnrichment(Enrichment):
                 return
 
         model_id = config["model"]
-        model = llm.get_async_model(model_id)
+        model = await llm.model(model_id, purpose=PURPOSE)
         response = await model.prompt(prompt, system=system, attachments=attachments)
         output = await response.text()
         await db.execute_write(

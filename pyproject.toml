@@ -12,7 +12,7 @@ requires-python = ">=3.10"
 dependencies = [
     "datasette>=1.0a21",
     "datasette-enrichments>=0.6a0",
-    "datasette-llm-accountant>=0.1a1",
+    "datasette-llm>=0.1a3",
 ]
 
 [build-system]
