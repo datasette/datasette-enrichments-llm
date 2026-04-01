@@ -116,6 +116,7 @@ class LlmEnrichment(Enrichment):
         pks: List[str],
         config: dict,
         job_id: int,
+        actor_id: str = None,
     ) -> List[Optional[str]]:
         if rows:
             row = rows[0]
@@ -158,7 +159,10 @@ class LlmEnrichment(Enrichment):
                 return
 
         model_id = config["model"]
-        model = await llm.model(model_id, purpose=PURPOSE)
+        actor = None
+        if actor_id:
+            actor = (await datasette.actors_from_ids([actor_id])).get(actor_id)
+        model = await llm.model(model_id, purpose=PURPOSE, actor=actor)
         response = await model.prompt(prompt, system=system, attachments=attachments)
         output = await response.text()
         await db.execute_write(

@@ -29,7 +29,7 @@ CI = "https://github.com/datasette/datasette-enrichments-llm/actions"
 enrichments_llm = "datasette_enrichments_llm"
 
 [dependency-groups]
-dev = ["pytest", "pytest-asyncio", "pytest-recording"]
+dev = ["pytest", "pytest-asyncio", "pytest-recording", "llm-echo>=0.3"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "strict"
